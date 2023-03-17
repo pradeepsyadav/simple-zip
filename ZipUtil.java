@@ -47,7 +47,7 @@ public class ZipUtil {
     }
 
     
-    private static String stripPathPrefix(String s) {
+    public static String stripPathPrefix(String s) {
         int i = s.length() - 1;
         while (s.charAt(i) != '/') {
             i--;
@@ -55,11 +55,21 @@ public class ZipUtil {
         return s.substring(i+1);
     }
 
+    
+
      private static String stripPathPrefix(List<String> paths) {
         // int i = s.length() - 1;
         // while (s.charAt(i) != '/') {
         //     i--;
         // }
         return "";
+    }
+
+    public static String[] splitParentAndLeaf(String s) {
+        int i = s.length() - 1;
+        while (s.charAt(i) != '/' && i > 0) {
+            i--;
+        }
+        return new String[] { i == 0 ? "" : s.substring(0, i), s.substring(i == 0 ? 0 : i + 1) };
     }
 }

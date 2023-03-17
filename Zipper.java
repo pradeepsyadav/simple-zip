@@ -8,24 +8,27 @@ import java.util.List;
 
 class Zipper {
 
-    static Path zipPath = new File("multiFiles3.pkzip").toPath();
+    static Path zipPath = new File("multiFilesBeyondJustText.pkzip").toPath();
     static File inputFile = new File("abc.txt");
     static File inputFile2 = new File("data/foo.txt");
     static File inputFile3 = new File("data/barz.txt");
+    static File inputFile4 = new File("image.png");
+
+    static String unzipTo = "results";
 
     public static byte[]  zipFiles(List<File> files) {
         return new byte[1];
     }
 
     public static void  zip() throws IOException {
-        byte[] zippedBytes = Zip.createZipRecordNew(Arrays.asList(inputFile, inputFile2, inputFile3));
+        byte[] zippedBytes = Zip.createZipRecordNew(Arrays.asList(inputFile, inputFile2, inputFile3, inputFile4));
         // byte[] zippedBytes = Zip.createZipRecordNew(inputFile);
 
         Files.write(zipPath, zippedBytes, new OpenOption[]{});
     }
 
     public static void  unzip() throws IOException {
-        Unzip unzip = new Unzip(Files.readAllBytes(zipPath));
+        Unzip unzip = new Unzip(Files.readAllBytes(zipPath), unzipTo);
         unzip.unzip();
     }
 
@@ -33,7 +36,7 @@ class Zipper {
         try {
             
             zip();
-            unzip();
+            // unzip();
             
         } catch (Exception e) {
             System.err.println("Error " + e);
